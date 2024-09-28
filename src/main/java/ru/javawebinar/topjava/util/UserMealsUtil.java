@@ -74,7 +74,7 @@ public class UserMealsUtil {
             meals = new ArrayList<>(List.of(meal));
         }
 
-        public static void addMeal(UserMeal meal, int caloriesPerDay) {
+        private static void addMeal(UserMeal meal, int caloriesPerDay) {
             if (!dailyMap.containsKey(meal.getDate())){
                 dailyMap.put(meal.getDate(), new DailyMeals(meal, caloriesPerDay));
             } else {
