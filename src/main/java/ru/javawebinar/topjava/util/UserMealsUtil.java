@@ -29,6 +29,8 @@ public class UserMealsUtil {
         mealsTo.forEach(out::println);
 
         out.println(filteredByStreams(meals, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000));
+
+        out.println(DailyMeals.getMealsWithExcess(meals, LocalTime.of(7, 0), LocalTime.of(12, 0), 2000));
     }
 
     public static List<UserMealWithExcess> filteredByCycles(List<UserMeal> meals, LocalTime startTime,
@@ -57,6 +59,41 @@ public class UserMealsUtil {
 
     private static UserMealWithExcess createMealWithExcess(UserMeal meal, boolean excess) {
         return new UserMealWithExcess(meal.getDateTime(), meal.getDescription(), meal.getCalories(), excess);
+    }
+
+    private static class DailyMeals {
+        static Map<LocalDate, DailyMeals> dailyMap = new HashMap<>();
+        int calories;
+        boolean excess;
+        List<UserMeal> meals;
+
+        private DailyMeals(UserMeal meal, int caloriesPerDay) {
+            this.calories = meal.getCalories();
+            this.excess = calories > caloriesPerDay;
+            meals = new ArrayList<>(List.of(meal));
+        }
+
+        public static void addMeal(UserMeal meal, int caloriesPerDay) {
+            if (!dailyMap.containsKey(meal.getDate())){
+                dailyMap.put(meal.getDate(), new DailyMeals(meal, caloriesPerDay));
+            } else {
+                DailyMeals dailyMeals = dailyMap.get(meal.getDate());
+                dailyMeals.calories += meal.getCalories();
+                dailyMeals.excess = dailyMeals.calories > caloriesPerDay;
+                dailyMeals.meals.add(meal);
+            }
+        }
+
+        public static List<UserMealWithExcess> getMealsWithExcess(List<UserMeal> meals, LocalTime startTime,
+                                                                  LocalTime endTime, int caloriesPerDay) {
+            List<UserMeal> withinMeals = meals.stream()
+                    .peek(m -> DailyMeals.addMeal(m, caloriesPerDay))
+                    .filter(m -> isBetweenHalfOpen(m.getTime(), startTime, endTime))
+                    .toList();
+            return withinMeals.stream()
+                    .map(m -> createMealWithExcess(m, dailyMap.get(m.getDate()).excess))
+                    .toList();
+        }
     }
 
 }
