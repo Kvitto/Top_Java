@@ -17,7 +17,13 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class MealServlet extends HttpServlet {
     private static final int CALORIES_PER_DAY = 2000;
     private static final Logger log = getLogger(MealServlet.class);
-    private final List<MealTo> mealsTo = MealsUtil.getMealsTo(Storage.getMeals(), CALORIES_PER_DAY);
+    private List<MealTo> mealsTo;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        mealsTo = MealsUtil.getMealsTo(Storage.getMeals(), CALORIES_PER_DAY);
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
