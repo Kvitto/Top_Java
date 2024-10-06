@@ -1,7 +1,10 @@
 .table {
-    width: 100%;
+    width: 80%;
     border: none;
+    align-self: center;
     margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .table thead th {
     font-weight: bold;
@@ -23,6 +26,9 @@
     padding: 10px 15px;
     font-size: 14px;
     vertical-align: top;
+}
+.table tbody tr:nth-child(even){
+    background: #f3f3f3;
 }
 .table tbody tr td:first-child {
     border-radius: 8px 0 0 8px;
