@@ -24,8 +24,8 @@
             <c:forEach var="meal" items="${mealsToStorage}">
                 <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealTo"/>
                 <fmt:parseDate value="${meal.dateTime}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-                <fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${parsedDateTime}" var="dateTime" />
-                <tr style=${meal.excess ? "color:Tomato;" : "color:MediumSeaGreen;"}>
+                <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${parsedDateTime}" var="dateTime" />
+                <tr style="color:${meal.excess ? "Tomato" : "MediumSeaGreen"};">
                     <td>${dateTime}</td>
                     <td>${meal.description}</td>
                     <td>${meal.calories}</td>
