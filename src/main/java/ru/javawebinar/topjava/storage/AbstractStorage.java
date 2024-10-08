@@ -1,8 +1,6 @@
 package ru.javawebinar.topjava.storage;
-/*
-import com.urise.webapp.exception.ExistStorageException;
-import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.model.Resume;
+
+import ru.javawebinar.topjava.model.Meal;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,67 +10,66 @@ public abstract class AbstractStorage<SK> implements Storage {
     private static final Logger log = Logger.getLogger(AbstractStorage.class.getName());
 
     @Override
-    public void update(Resume r) {
-        //log.info("update " + r);
-        SK searchKey = getExistingSearchKey(r.getUuid());
-        doUpdate(searchKey, r);
+    public void update(Meal m) {
+        log.info("update " + m);
+        SK searchKey = getExistingSearchKey(m.getId());
+        doUpdate(searchKey, m);
     }
 
     @Override
-    public void save(Resume r) {
-        //log.info("save " + r);
-        SK searchKey = getNotExistingSearchKey(r.getUuid());
-        doSave(searchKey, r);
+    public void save(Meal m) {
+        log.info("save " + m);
+        SK searchKey = getNotExistingSearchKey(m.getId());
+        doSave(searchKey, m);
     }
 
     @Override
-    public Resume get(String uuid) {
-        //log.info("get " + uuid);
-        SK searchKey = getExistingSearchKey(uuid);
+    public Meal get(Integer id) {
+        log.info("get " + id);
+        SK searchKey = getExistingSearchKey(id);
         return doGet(searchKey);
     }
 
     @Override
-    public void delete(String uuid) {
-        //log.info("delete " + uuid);
-        SK searchKey = getExistingSearchKey(uuid);
+    public void delete(Integer id) {
+        log.info("delete " + id);
+        SK searchKey = getExistingSearchKey(id);
         doDelete(searchKey);
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        //log.info("getAllSorted");
-        List<Resume> resumeList = getResumeList();
-        Collections.sort(resumeList);
-        return resumeList;
+    public List<Meal> getAllSorted() {
+        log.info("getAllSorted");
+        List<Meal> mealList = getMealList();
+        Collections.sort(mealList);
+        return mealList;
     }
 
-    protected SK getExistingSearchKey(String uuid) {
-        //log.warning("getExistingSearchKey " + uuid);
-        SK searchKey = getSearchKey(uuid);
-        if (!isExist(searchKey)) throw new NotExistStorageException(uuid);
+    protected SK getExistingSearchKey(Integer id) {
+        log.warning("getExistingSearchKey " + id);
+        SK searchKey = getSearchKey(id);
+        if (!isExist(searchKey)) throw new RuntimeException(id + " - does not exist");
         return searchKey;
     }
 
-    protected SK getNotExistingSearchKey(String uuid) {
-        //log.warning("getNotExistingSearchKey " + uuid);
-        SK searchKey = getSearchKey(uuid);
-        if (isExist(searchKey)) throw new ExistStorageException(uuid);
+    protected SK getNotExistingSearchKey(Integer id) {
+        log.warning("getNotExistingSearchKey " + id);
+        SK searchKey = getSearchKey(id);
+        if (isExist(searchKey)) throw new RuntimeException(id + " - already exists");
         return searchKey;
     }
 
-    protected abstract List<Resume> getResumeList();
+    protected abstract List<Meal> getMealList();
 
     protected abstract boolean isExist(SK searchKey);
 
     protected abstract void doDelete(SK searchKey);
 
-    protected abstract Resume doGet(SK searchKey);
+    protected abstract Meal doGet(SK searchKey);
 
-    protected abstract void doSave(SK searchKey, Resume r);
+    protected abstract void doSave(SK searchKey, Meal m);
 
-    protected abstract void doUpdate(SK searchKey, Resume r);
+    protected abstract void doUpdate(SK searchKey, Meal m);
 
-    protected abstract SK getSearchKey(String uuid);
+    protected abstract SK getSearchKey(Integer id);
 }
-*/

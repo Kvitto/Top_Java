@@ -1,47 +1,47 @@
 package ru.javawebinar.topjava.storage;
-/*
-import com.urise.webapp.model.Resume;
+
+import ru.javawebinar.topjava.model.Meal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapResumeStorage extends AbstractStorage<Resume> {
-    protected Map<String, Resume> storage = new HashMap<>();
+public class MapResumeStorage extends AbstractStorage<Meal> {
+    protected Map<Integer, Meal> storage = new HashMap<>();
 
     @Override
-    protected boolean isExist(Resume searchKey) {
+    protected boolean isExist(Meal searchKey) {
         return searchKey != null;
     }
 
     @Override
-    protected void doDelete(Resume searchKey) {
-        storage.remove(searchKey.getUuid());
+    protected void doDelete(Meal searchKey) {
+        storage.remove(searchKey.getId());
     }
 
     @Override
-    protected Resume doGet(Resume searchKey) {
-        return storage.get(searchKey.getUuid());
+    protected Meal doGet(Meal searchKey) {
+        return storage.get(searchKey.getId());
     }
 
     @Override
-    protected void doSave(Resume searchKey, Resume r) {
-        storage.put(r.getUuid(), r);
+    protected void doSave(Meal searchKey, Meal m) {
+        storage.put(m.getId(), m);
     }
 
     @Override
-    protected void doUpdate(Resume searchKey, Resume r) {
-        storage.put(r.getUuid(), r);
+    protected void doUpdate(Meal searchKey, Meal m) {
+        storage.put(m.getId(), m);
     }
 
     @Override
-    protected Resume getSearchKey(String uuid) {
-        return storage.get(uuid);
+    protected Meal getSearchKey(Integer id) {
+        return storage.get(id);
     }
 
     @Override
-    protected List<Resume> getResumeList() {
+    protected List<Meal> getMealList() {
         return new ArrayList<>(storage.values());
     }
 
@@ -55,4 +55,3 @@ public class MapResumeStorage extends AbstractStorage<Resume> {
         return storage.size();
     }
 }
-*/
