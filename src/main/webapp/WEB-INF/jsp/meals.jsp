@@ -17,7 +17,7 @@
                 <th>Дата/Время</th>
                 <th>Описание</th>
                 <th>Калории</th>
-                <th><a href="meals?id=0&action=edit"><img src="img/add.png"></a></th>
+                <th><a href="meals?id=null&action=edit"><img src="img/add.png"></a></th>
             </tr>
         </thead>
         <tbody>

@@ -1,4 +1,3 @@
-<%@ page import="java.time.LocalDateTime" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -24,16 +23,18 @@
             </thead>
             <tbody>
                 <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.Meal" scope="request"/>
-                <fmt:parseDate value="${LocalDateTime.now()}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime" type="both" />
-                <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${parsedDateTime}" var="dateTime" />
-                <input type="hidden" name="id" value="${meal.id}">
+                <c:if test="meal.id == null">
+                    <fmt:parseDate value="${meal.dateTime}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime" type="both" />
+                    <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${parsedDateTime}" var="dateTime" />
+                </c:if>
+                <input type="hidden" name="id" value=${meal.id == null ? "null" : meal.id}>
                 <tr>
                     <td><input type="datetime-local" name="datetime"
-                               value="${meal.id == 0 ? dateTime : meal.dateTime}"></td>
+                               value=${meal.id == null ? dateTime : meal.dateTime}></td>
                     <td><input type="text" placeholder="description"  name="description"
-                               value="${meal.id == 0 ? "" : meal.description}"></td>
+                               value="${meal.description}"></td>
                     <td><input type="number" name="calories"
-                               value="${meal.id == 0 ? 0 : meal.calories}"></td>
+                               value="${meal.calories}"></td>
                     <td>
                         <button type="submit"><img src="img/add.png" alt="Save"></button>
                         <button type="reset" onclick="window.history.back()"><img src="img/delete.png" alt="Back"></button>

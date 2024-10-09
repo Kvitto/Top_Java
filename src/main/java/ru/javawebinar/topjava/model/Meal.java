@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Meal implements Comparable<Meal> {
 
-    private final int id;
+    private final Integer id;
 
     private final LocalDateTime dateTime;
 
@@ -22,7 +22,7 @@ public class Meal implements Comparable<Meal> {
         this.calories = calories;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
