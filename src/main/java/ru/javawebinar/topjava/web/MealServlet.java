@@ -2,7 +2,7 @@ package ru.javawebinar.topjava.web;
 
 import org.slf4j.Logger;
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.storage.MealStorageImp;
+import ru.javawebinar.topjava.storage.MealStorageMemory;
 import ru.javawebinar.topjava.storage.Storage;
 import ru.javawebinar.topjava.util.MealsUtil;
 
@@ -22,7 +22,7 @@ public class MealServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        storage = new MealStorageImp();
+        storage = new MealStorageMemory();
         MealsUtil.populateStorage(storage);
     }
 

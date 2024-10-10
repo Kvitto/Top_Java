@@ -6,10 +6,10 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
-public class MealStorageImp implements Storage {
-    private static final Logger log = Logger.getLogger(MealStorageImp.class.getName());
+public class MealStorageMemory implements Storage {
+    private static final Logger log = Logger.getLogger(MealStorageMemory.class.getName());
     private final Map<Integer, Meal> storage = new HashMap<>();
-    private static AtomicInteger sequence;
+    private AtomicInteger sequence = new AtomicInteger(0);
 
     @Override
     public Meal create(Meal m) {
@@ -19,6 +19,7 @@ public class MealStorageImp implements Storage {
             storage.put(m.getId(), m);
         } else {
             log.info("Can`t create! Storage already exists id = " + m.getId());
+            m = null;
         }
         return m;
     }
@@ -61,10 +62,7 @@ public class MealStorageImp implements Storage {
         return new ArrayList<>(storage.values());
     }
 
-    private static int generateId() {
-        if (sequence == null) {
-            sequence = new AtomicInteger(0);
-        }
+    private int generateId() {
         return sequence.getAndIncrement();
     }
 }
