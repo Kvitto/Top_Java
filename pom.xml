@@ -59,10 +59,11 @@
         </dependency>
 
         <!-- Spring -->
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
+            <version>5.3.39</version>
         </dependency>
 
         <!--Web-->
