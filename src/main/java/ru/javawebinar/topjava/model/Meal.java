@@ -5,25 +5,28 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Meal extends AbstractBaseEntity {
-    private final LocalDateTime dateTime;
+    private LocalDateTime registered;
 
-    private final String description;
+    private String description;
 
-    private final int calories;
+    private int calories;
 
-    public Meal(LocalDateTime dateTime, String description, int calories) {
-        this(null, dateTime, description, calories);
+    public Meal() {
     }
 
-    public Meal(Integer id, LocalDateTime dateTime, String description, int calories) {
+    public Meal(LocalDateTime registered, String description, int calories) {
+        this(null, registered, description, calories);
+    }
+
+    public Meal(Integer id, LocalDateTime registered, String description, int calories) {
         super(id);
-        this.dateTime = dateTime;
+        this.registered = registered;
         this.description = description;
         this.calories = calories;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getRegistered() {
+        return registered;
     }
 
     public String getDescription() {
@@ -35,18 +38,30 @@ public class Meal extends AbstractBaseEntity {
     }
 
     public LocalDate getDate() {
-        return dateTime.toLocalDate();
+        return registered.toLocalDate();
     }
 
     public LocalTime getTime() {
-        return dateTime.toLocalTime();
+        return registered.toLocalTime();
+    }
+
+    public void setRegistered(LocalDateTime registered) {
+        this.registered = registered;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCalories(int calories) {
+        this.calories = calories;
     }
 
     @Override
     public String toString() {
         return "Meal{" +
                 "id=" + id +
-                ", dateTime=" + dateTime +
+                ", dateTime=" + registered +
                 ", description='" + description + '\'' +
                 ", calories=" + calories +
                 '}';
