@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Meal extends AbstractBaseEntity {
-    private LocalDateTime registered;
+    private LocalDateTime dateTime;
 
     private String description;
 
@@ -14,19 +14,19 @@ public class Meal extends AbstractBaseEntity {
     public Meal() {
     }
 
-    public Meal(LocalDateTime registered, String description, int calories) {
-        this(null, registered, description, calories);
+    public Meal(LocalDateTime dateTime, String description, int calories) {
+        this(null, dateTime, description, calories);
     }
 
-    public Meal(Integer id, LocalDateTime registered, String description, int calories) {
+    public Meal(Integer id, LocalDateTime dateTime, String description, int calories) {
         super(id);
-        this.registered = registered;
+        this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
     }
 
-    public LocalDateTime getRegistered() {
-        return registered;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
     public String getDescription() {
@@ -38,15 +38,15 @@ public class Meal extends AbstractBaseEntity {
     }
 
     public LocalDate getDate() {
-        return registered.toLocalDate();
+        return dateTime.toLocalDate();
     }
 
     public LocalTime getTime() {
-        return registered.toLocalTime();
+        return dateTime.toLocalTime();
     }
 
-    public void setRegistered(LocalDateTime registered) {
-        this.registered = registered;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public void setDescription(String description) {
@@ -61,7 +61,7 @@ public class Meal extends AbstractBaseEntity {
     public String toString() {
         return "Meal{" +
                 "id=" + id +
-                ", dateTime=" + registered +
+                ", dateTime=" + dateTime +
                 ", description='" + description + '\'' +
                 ", calories=" + calories +
                 '}';
