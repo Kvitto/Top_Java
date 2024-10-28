@@ -19,7 +19,7 @@ import java.time.LocalTime;
                                                      "ORDER BY m.dateTime DESC")
 })
 @Entity
-@Table(name = "meal")
+@Table(name = "meal", uniqueConstraints=@UniqueConstraint(columnNames={"user_id", "date_time"}))
 public class Meal extends AbstractBaseEntity {
 
     public static final String DELETE = "Meal.delete";
@@ -27,7 +27,7 @@ public class Meal extends AbstractBaseEntity {
     public static final String GET_BETWEEN = "Meal.getBetween";
     public static final String ALL_SORTED = "Meal.getAllSorted";
 
-    @Column(name = "date_time", nullable = false, columnDefinition = "timestamp default now()")
+    @Column(name = "date_time", nullable = false)
     @NotNull
     private LocalDateTime dateTime;
 
@@ -36,14 +36,13 @@ public class Meal extends AbstractBaseEntity {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @NotNull
     @Column(name = "calories", nullable = false)
     @Range(min = 10, max = 10000)
     private int calories;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="user_id", nullable = false)
     private User user;
 
     public Meal() {
