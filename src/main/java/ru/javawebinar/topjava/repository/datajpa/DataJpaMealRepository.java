@@ -34,15 +34,14 @@ public class DataJpaMealRepository implements MealRepository {
         return crudRepository.delete(id, userId) != 0;
     }
 
-
     @Override
     public Meal get(int id, int userId) {
-        return crudRepository.getMealByIdAndUserId(id, userId);
+        return crudRepository.getByIdAndUserId(id, userId);
     }
 
     @Override
     public List<Meal> getAll(int userId) {
-        return crudRepository.findAllByUserIdOrderByDateTimeDesc(userId);
+        return crudRepository.findAll(userId);
     }
 
     @Override
