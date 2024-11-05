@@ -32,14 +32,6 @@ public abstract class AbstractServiceTest {
 
     private static final StringBuilder results = new StringBuilder();
 
-    @Autowired
-    protected CacheManager cacheManager;
-
-    @Before
-    public void setup() {
-        cacheManager.getCache("users").clear();
-    }
-
     @Rule
     // http://stackoverflow.com/questions/14892125/what-is-the-best-practice-to-determine-the-execution-time-of-the-bussiness-relev
     public final Stopwatch stopwatch = new Stopwatch() {
