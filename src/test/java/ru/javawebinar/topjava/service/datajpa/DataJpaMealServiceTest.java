@@ -6,5 +6,5 @@ import ru.javawebinar.topjava.service.AbstractMealServiceTest;
 import static ru.javawebinar.topjava.Profiles.DATAJPA;
 
 @ActiveProfiles(DATAJPA)
-public class DataJpaAbstractMealServiceTest extends AbstractMealServiceTest {
+public class DataJpaMealServiceTest extends AbstractMealServiceTest {
 }

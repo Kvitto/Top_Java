@@ -1,7 +1,7 @@
 package ru.javawebinar.topjava.repository.datajpa;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 
@@ -10,42 +10,41 @@ import java.util.List;
 
 @Repository
 public class DataJpaMealRepository implements MealRepository {
+    private final CrudUserRepository userRepository;
+    private final CrudMealRepository mealRepository;
 
-    @Autowired
-    private CrudUserRepository userRepository;
-
-    private final CrudMealRepository crudRepository;
-
-    public DataJpaMealRepository(CrudMealRepository crudRepository) {
-        this.crudRepository = crudRepository;
+    public DataJpaMealRepository(CrudMealRepository mealRepository, CrudUserRepository userRepository) {
+        this.mealRepository = mealRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
+    @Transactional
     public Meal save(Meal meal, int userId) {
         if (!meal.isNew() && get(meal.id(), userId) == null) {
             return null;
         }
         meal.setUser(userRepository.getReferenceById(userId));
-        return crudRepository.save(meal);
+        return mealRepository.save(meal);
     }
 
     @Override
     public boolean delete(int id, int userId) {
-        return crudRepository.delete(id, userId) != 0;
+        return mealRepository.delete(id, userId) != 0;
     }
 
     @Override
     public Meal get(int id, int userId) {
-        return crudRepository.getByIdAndUserId(id, userId);
+        return mealRepository.get(id, userId);
     }
 
     @Override
     public List<Meal> getAll(int userId) {
-        return crudRepository.findAll(userId);
+        return mealRepository.findAll(userId);
     }
 
     @Override
     public List<Meal> getBetweenHalfOpen(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
-        return crudRepository.getBetweenHalfOpen(startDateTime, endDateTime, userId);
+        return mealRepository.getBetweenHalfOpen(startDateTime, endDateTime, userId);
     }
 }
