@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
 
@@ -21,13 +22,14 @@ import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalDate;
 import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
 @Controller
+@RequestMapping(value = "/meals")
 public class JspMealController extends AbstractMealController {
 
     public JspMealController(MealService service) {
         super(service);
     }
 
-    @GetMapping("/meals")
+    @GetMapping("")
     public String meals(Model model) {
         log.info("Getting meals");
         model.addAttribute("meals", getAll());
@@ -43,7 +45,7 @@ public class JspMealController extends AbstractMealController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(Model model, @PathVariable("id") int id) {
+    public String remove(@PathVariable("id") int id) {
         log.info("delete meal");
         delete(id);
         return "redirect:/meals";
@@ -54,6 +56,7 @@ public class JspMealController extends AbstractMealController {
         log.info("new meal");
         final Meal meal = new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "", 1000);
         model.addAttribute("meal", meal);
+        model.addAttribute("action", "create");
         return "mealForm";
     }
 
@@ -68,7 +71,7 @@ public class JspMealController extends AbstractMealController {
         return "meals";
     }
 
-    @PostMapping("/meals")
+    @PostMapping("")
     public String save(HttpServletRequest request) throws UnsupportedEncodingException {
         log.info("save meal");
         request.setCharacterEncoding("UTF-8");

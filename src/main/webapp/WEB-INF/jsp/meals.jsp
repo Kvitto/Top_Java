@@ -4,18 +4,18 @@
 <%@ taglib prefix="fn" uri="http://topjava.javawebinar.ru/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
     <title><spring:message code="meal.title"/></title>
-    <link rel="stylesheet" href="${ctx}/resources/css/style.css">
+    <base href="${pageContext.request.contextPath}/">
+    <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
+<jsp:include page="fragments/bodyHeader.jsp"/>
 <section>
-    <h3><a href="${ctx}"><spring:message code="app.home"/></a></h3>
     <hr/>
     <h2><spring:message code="meal.title"/></h2>
-    <form method="get" action="${ctx}/filter">
+    <form method="get" action="meals/filter">
         <dl>
             <dt><spring:message code="meal.startDate"/>:</dt>
             <dd><input type="date" name="startDate" value="${param.startDate}"></dd>
@@ -35,7 +35,7 @@
         <button type="submit"><spring:message code="meal.filter"/></button>
     </form>
     <hr/>
-    <a href="${ctx}/create"><spring:message code="meal.addMeal"/></a>
+    <a href="meals/create"><spring:message code="meal.addMeal"/></a>
     <br><br>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
@@ -58,11 +58,12 @@
                 </td>
                 <td>${meal.description}</td>
                 <td>${meal.calories}</td>
-                <td><a href="${ctx}/update/${meal.id}"><spring:message code="meal.update"/></a></td>
-                <td><a href="${ctx}/delete/${meal.id}"><spring:message code="meal.delete"/></a></td>
+                <td><a href="meals/update/${meal.id}"><spring:message code="meal.update"/></a></td>
+                <td><a href="meals/delete/${meal.id}"><spring:message code="meal.delete"/></a></td>
             </tr>
         </c:forEach>
     </table>
 </section>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

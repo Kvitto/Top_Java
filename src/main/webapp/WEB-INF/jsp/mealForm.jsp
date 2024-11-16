@@ -4,15 +4,16 @@
 <html>
 <head>
     <title>Meal</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <base href="${pageContext.request.contextPath}/">
+    <link rel="stylesheet" href="resources/css/style.css">
 </head>
+<jsp:include page="fragments/bodyHeader.jsp"/>
 <body>
 <section>
-    <h3><a href="${pageContext.request.contextPath}"><spring:message code="app.home"/></a></h3>
     <hr>
-    <h2><spring:message code="${param.action == 'create' ? 'meal.addMeal' : 'meal.update'}"/></h2>
+    <h2><spring:message code="${action == 'create' ? 'meal.addMeal' : 'meal.update'}"/></h2>
     <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.Meal" scope="request"/>
-    <form method="post" action="${pageContext.request.contextPath}/meals">
+    <form method="post" action="meals">
         <input type="hidden" name="id" value="${meal.id}">
         <dl>
             <dt><spring:message code="meal.date"/>:</dt>
@@ -31,4 +32,5 @@
     </form>
 </section>
 </body>
+<jsp:include page="fragments/footer.jsp"/>
 </html>

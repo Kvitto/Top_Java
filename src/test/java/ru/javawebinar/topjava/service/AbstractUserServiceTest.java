@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertThrows;
+import static ru.javawebinar.topjava.Profiles.JDBC;
 import static ru.javawebinar.topjava.UserTestData.*;
 
 public abstract class AbstractUserServiceTest extends AbstractServiceTest {
@@ -28,17 +29,17 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     protected UserService service;
 
     @Autowired
-    protected CacheManager cacheManager;
+    private CacheManager cacheManager;
 
     @Autowired
     private ApplicationContext context;
 
-    protected JpaUtil jpaUtil;
+    private JpaUtil jpaUtil;
 
     @Before
     public void setup() {
         cacheManager.getCache("users").clear();
-        if (!Arrays.asList(context.getEnvironment().getActiveProfiles()).contains("jdbc")) {
+        if (!isJdbcProfileActive()) {
             jpaUtil = context.getBean(JpaUtil.class);
             jpaUtil.clear2ndLevelHibernateCache();
         }
@@ -103,11 +104,15 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Test
     public void createWithException() throws Exception {
-        Assume.assumeTrue(!Arrays.asList(context.getEnvironment().getActiveProfiles()).contains("jdbc"));
+        Assume.assumeFalse(isJdbcProfileActive());
         validateRootCause(ConstraintViolationException.class, () -> service.create(new User(null, "  ", "mail@yandex.ru", "password", Role.USER)));
         validateRootCause(ConstraintViolationException.class, () -> service.create(new User(null, "User", "  ", "password", Role.USER)));
         validateRootCause(ConstraintViolationException.class, () -> service.create(new User(null, "User", "mail@yandex.ru", "  ", Role.USER)));
         validateRootCause(ConstraintViolationException.class, () -> service.create(new User(null, "User", "mail@yandex.ru", "password", 9, true, new Date(), Set.of())));
         validateRootCause(ConstraintViolationException.class, () -> service.create(new User(null, "User", "mail@yandex.ru", "password", 10001, true, new Date(), Set.of())));
+    }
+
+    private boolean isJdbcProfileActive() {
+        return Arrays.asList(context.getEnvironment().getActiveProfiles()).contains(JDBC);
     }
 }
