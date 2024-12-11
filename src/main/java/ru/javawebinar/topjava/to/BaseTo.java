@@ -1,4 +1,4 @@
-﻿package ru.javawebinar.topjava.to;
+package ru.javawebinar.topjava.to;
 
 import ru.javawebinar.topjava.HasId;
 

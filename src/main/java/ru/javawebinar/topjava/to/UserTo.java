@@ -1,4 +1,4 @@
-﻿package ru.javawebinar.topjava.to;
+package ru.javawebinar.topjava.to;
 
 import org.hibernate.validator.constraints.Range;
 import ru.javawebinar.topjava.util.UsersUtil;

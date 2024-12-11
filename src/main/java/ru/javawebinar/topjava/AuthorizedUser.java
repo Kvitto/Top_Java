@@ -1,4 +1,4 @@
-﻿package ru.javawebinar.topjava;
+package ru.javawebinar.topjava;
 
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.to.UserTo;
