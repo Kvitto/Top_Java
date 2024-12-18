@@ -8,3 +8,25 @@ log
 
 /patch/
 /lib/
+/topjava.git/hooks/applypatch-msg.sample
+/topjava.git/hooks/commit-msg.sample
+/topjava.git/config
+/topjava.git/description
+/topjava.git/info/exclude
+/topjava.git/hooks/fsmonitor-watchman.sample
+/topjava.git/HEAD
+/topjava.git/objects/pack/pack-cad65a5751276a2a63f2fc4b75f0daaf5c460e01.idx
+/topjava.git/objects/pack/pack-cad65a5751276a2a63f2fc4b75f0daaf5c460e01.pack
+/topjava.git/objects/pack/pack-cad65a5751276a2a63f2fc4b75f0daaf5c460e01.rev
+/topjava.git/packed-refs
+/topjava.git/hooks/post-update.sample
+/topjava.git/hooks/pre-applypatch.sample
+/topjava.git/hooks/pre-commit.sample
+/topjava.git/hooks/pre-merge-commit.sample
+/topjava.git/hooks/pre-push.sample
+/topjava.git/hooks/pre-rebase.sample
+/topjava.git/hooks/pre-receive.sample
+/topjava.git/hooks/prepare-commit-msg.sample
+/topjava.git/hooks/push-to-checkout.sample
+/topjava.git/hooks/sendemail-validate.sample
+/topjava.git/hooks/update.sample
